@@ -32,6 +32,13 @@
 
 			<section>
 				<ul id="listContainer" class="todo-list">
+					{% for todolist in todo_items %}
+						{% if todolist.completed %}
+						<li class="markComplete">{{todolist.text}}<input type="button" class="edit" value="Edit"><input type="button" class=" delete" value="Delete"></li>
+						{% else %}
+						<a href = "#"><li>{{todolist.text}}<input type="button" class="edit" value="Edit"><input type="button" class=" delete" value="Delete"></li>
+						{% endif %}
+						{% endfor %}
                 </ul>
 				<button id="clearBtn" class="clearBtn" type="button" name="button"> Clear List</button>
 				<button id="clearDone" class="clearBtn" type="button" name="button"> Clear Completed</button>
