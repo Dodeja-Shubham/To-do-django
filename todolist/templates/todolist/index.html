@@ -23,28 +23,35 @@
 		<section id="main">
 			<h1>To Do List</h1>
 
-			<form id="formToDo" class="form-add-todo">
-
-			  <input type="text" id="new-todo-item" class="new-todo-item" name="todo" placeholder="Add Task . . ." />
+			<form action="{% url 'add' %}" method="POST" role="form">
+				{% csrf_token %}
+				{{form.text}}
+				<!-- <input type="text" id="new-todo-item" class="new-todo-item" name="todo" placeholder="Add Task . . ." /> -->
 				<input type="submit" id="add-todo-item" class="add-todo-item" value="+" />
-
 			</form>
 
 			<section>
 				<ul id="listContainer" class="todo-list">
 					{% for todolist in todo_items %}
-						{% if todolist.completed %}
-						<li class="markComplete">{{todolist.text}}<input type="button" class="edit" value="Edit"><input type="button" class=" delete" value="Delete"></li>
-						{% else %}
-						<a href = "#"><li>{{todolist.text}}<input type="button" class="edit" value="Edit"><input type="button" class=" delete" value="Delete"></li>
+					{% if todolist.completed %}
+					<li class="markComplete">{{todolist.text}}<input type="button" class="edit" value="Edit"><input
+							type="button" class=" delete" value="Delete"></li>
+					{% else %}
+					<a href="{% url 'completed' todolist.id %}">
+						<li>{{todolist.text}}<input type="button" class="edit" value="Edit"><input type="button"
+								class=" delete" value="Delete"></li>
 						{% endif %}
 						{% endfor %}
-                </ul>
-				<button id="clearBtn" class="clearBtn" type="button" name="button"> Clear List</button>
-				<button id="clearDone" class="clearBtn" type="button" name="button"> Clear Completed</button>
+				</ul>
+				<a href="{% url 'deleteall' %}">
+				<button id="clearBtn" class="clearBtn" type="button" name="button"> Clear List</button></a>
+				<a href="{% url 'deletecompleted' %}">
+					<button id="clearDone" class="clearBtn" type="button"
+						name="button"> Clear Completed</button>
+				</a>
 				<h3></h3>
 			</section>
-			</section>
+		</section>
 
 
 
